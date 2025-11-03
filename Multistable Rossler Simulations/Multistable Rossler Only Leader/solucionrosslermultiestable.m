@@ -1,12 +1,12 @@
 clear all 
 clc
 
-for j=1:1:500
+for j=1:1:100
     
-    y01=-8+0.0320*(j-1);
+    y01=-8+0.16*(j-1);
     Za=[-0.1,0.01,0.3,y01,0.2,0.2];% Iterate the initial condition to analyze how the master is affected
    
-tini=1;tfinal=2000;M=100000;
+tini=1;tfinal=1000;M=10000;
 [T, Z] =rks4('maestro',tini,tfinal,Za,M);%  This function solves the system.
 % The solution of each state variable is saved in matrix Z.
 x=Z(:,1); 
@@ -36,7 +36,10 @@ grid;
 
 pause(0.5);
 
+x2_sol(:,j)=Z(:,4);
+
 end
 % Saving the time series of the state variable to plot the bifurcation diagram later
-  save xx2.dat x2 -ascii
+ save xx2.dat x2_sol -ascii
+ save tplot.dat T   -ascii
   

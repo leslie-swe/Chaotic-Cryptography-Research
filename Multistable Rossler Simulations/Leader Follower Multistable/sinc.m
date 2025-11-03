@@ -1,7 +1,7 @@
 %Verify synchronization.
 tini=1;tfinal=2000;M=100000;%Iteration steps
 global k;
-for j=1:1:100
+for j=1:1:1
     
     % Define initial conditions
     Za=[-0.1,0.01,0.3,1,0.2,0.2,0.1,-0.01,2,2,3,1];
@@ -25,6 +25,9 @@ z2s=Z(:,12);
 figure(1); 
 plot(x(3000:end, 1),xs(3000:end,1));%Removing the transient period
 title([ ',j = ',num2str(j),';k=',num2str(k)])
+set(gcf, 'color', 'none'); % Pone el fondo de la ventana transparente
+set(gca, 'color', 'none'); % Pone el fondo del área de la gráfica transparente
+saveas(gcf, 'sinchronization_k=0.3.png');
 
 xlabel('Eje X');
 ylabel('Eje XS');

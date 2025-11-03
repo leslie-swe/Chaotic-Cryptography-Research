@@ -3,10 +3,10 @@ clc
 load xx2.dat
 load tplot.dat
  
- for j=1:1:500
-  c=-8+0.0320*(j-1)
+ for j=1:1:100
+  y01=-8+0.16*(j-1);
   j;    
-  c_2(j)=c;
+  c_2(j)=y01;
   
 vx=xx2(:,j);%vx toma los valores de las soluciones en el eje x
 
@@ -46,10 +46,11 @@ end
     
 figure(2)
  
-plot(c_2, bifx, 'k.', 'MarkerSize', 2)
-xlabel('c control parameter')
+plot(c_2, bifx, 'b.', 'MarkerSize', 2)
+xlabel('y01 initial condition')
 ylabel('local maximumX')
 title('Biburcation diagram')
 grid
+
  
 
