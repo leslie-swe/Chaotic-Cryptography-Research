@@ -4,7 +4,7 @@ load xx1.dat
 load tplot.dat
  
  for j=1:1:100
-  c = 1 + 0.04*(j-1); 
+  c = 1 + 0.05*(j-1); 
   j;    
   c_2(j)=c;
   
