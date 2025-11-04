@@ -36,12 +36,12 @@ Findings were formally presented at the university's **"Feria de la Ciencia" (Sc
 #### 1. Rössler System Bifurcation Diagram
 *(This bifurcation diagram illustrates the "route to chaos" for the Rössler system, showing the period-doubling cascade as the 'c' parameter is varied.)*
 
-![Rössler Bifurcation Diagram](ruta/a/tu/rossler_bifurcation.png)
+![Rössler Bifurcation Diagram](https://github.com/leslie-swe/Chaotic-Cryptography-Research/blob/main/Rossler%20simulations/Bifurcation%20diagram/Bifurcation_diagram_rossler.png)
 
 #### 2. Rössler System Attractor
 *(This bifurcation diagram illustrates the "route to chaos" for the Rössler system, showing the period-doubling cascade as the 'c' parameter is varied.)*
 
-![Rössler Attractor](ruta/a/tu/rossler_bifurcation.png)
+![Rössler Attractor](https://github.com/leslie-swe/Chaotic-Cryptography-Research/blob/main/Rossler%20simulations/Attractor/atractor_rossler.png)
 
 #### 3. Multistable Rössler System Bifurcation Diagram
 *(This bifurcation diagram illustrates the "route to chaos" for the Rössler system, showing the period-doubling cascade as the 'c' parameter is varied.)*
@@ -51,9 +51,9 @@ Findings were formally presented at the university's **"Feria de la Ciencia" (Sc
 #### 4. Multistable Rössler System Attractor
 *(This bifurcation diagram illustrates the "route to chaos" for the Rössler system, showing the period-doubling cascade as the 'c' parameter is varied.)*
 
-![Multistable Rössler Attractors](https://github.com/leslie-swe/Chaotic-Cryptography-Research/blob/main/Multistable%20Rossler%20Simulations/Multistable%20Rossler%20Only%20Leader/Images/attractor_rossler_multistable_y01%3D-8.png)
-(https://github.com/leslie-swe/Chaotic-Cryptography-Research/blob/main/Multistable%20Rossler%20Simulations/Multistable%20Rossler%20Only%20Leader/Images/attractor_rossler_multistable_y01%3D0.1.png)
-(https://github.com/leslie-swe/Chaotic-Cryptography-Research/blob/main/Multistable%20Rossler%20Simulations/Multistable%20Rossler%20Only%20Leader/Images/attractor_rossler_multistable_y01%3D7.9.png)
+![Multistable Rössler Attractors y01 = -8](https://github.com/leslie-swe/Chaotic-Cryptography-Research/blob/main/Multistable%20Rossler%20Simulations/Multistable%20Rossler%20Only%20Leader/Images/attractor_rossler_multistable_y01%3D-8.png)
+![Multistable Rössler Attractors y01 = 0.1](https://github.com/leslie-swe/Chaotic-Cryptography-Research/blob/main/Multistable%20Rossler%20Simulations/Multistable%20Rossler%20Only%20Leader/Images/attractor_rossler_multistable_y01%3D0.1.png)
+![Multistable Rössler Attractors y01 = 7.9](https://github.com/leslie-swe/Chaotic-Cryptography-Research/blob/main/Multistable%20Rossler%20Simulations/Multistable%20Rossler%20Only%20Leader/Images/attractor_rossler_multistable_y01%3D7.9.png)
 
 
 
