@@ -1,26 +1,57 @@
+clear all
+clc
+A=imread("C:\Users\luismax\Pictures\hydepark.jpg");
+imshow(A);
+dimensiones_originales = size(A); 
+original_dimensions = size(A); 
+R = original_dimensions(1); 
+C = original_dimensions(2); 
+Channels = original_dimensions(3);
+A=double(A);
+senal_informacion = A(:); 
 
+package_size = 90; 
+total_elements = length(senal_informacion);
 
-tini=1;tfinal=2000;M=100000;%Iteration steps size step 0.0200
+num_full_packages = floor(total_elements / package_size);
+last_package_size = mod(total_elements, package_size);
+
+row_divisions = repmat(package_size, 1, num_full_packages);
+
+if last_package_size > 0
+    row_divisions = [row_divisions, last_package_size];
+end
+
+packages = mat2cell(senal_informacion, row_divisions, 1);
+num_paquetes = length(num_full_packages);
+% Inicializar el array de celdas que acumulará todos los resultados
+decrypted_j = cell(num_paquetes, 1);
+% figure;
+% imshow(A);
+
+tini=0;tfinal=80;M=412;%Iteration steps size step 0.0200
 r = 4;           % Control parameter
 x0 = 0.7;        % Initial condition (between 0 y 1)
-N = 300;         % Iterations
+N = length(packages);         % Iterations
 
+% signal_waveform = informationsignal_1(N2);
 
 % Vector inicialization
 y01 = zeros(N, 1);
 y01(1) = x0;
 
-% Logistic map iteration
+% Logistic map iteration generates initial conditions
 for n = 1:N-1
     y01(n+1) = r * y01(n) * (1 - y01(n));
 end
 
 global k;
 
-for j=1:1:10
+for j=1:1:N
+    j
     y_0=-8+y01(j)*16;
-    N=97;
-    signal_waveform = informationsignal_1(N);
+    current_package = packages{j};
+    current_packagem = current_package*0.001;
     % Define initial conditions
     Za=[-0.1,0.01,0.3,y_0,0.2,0.2,0.1,-0.01,2,2,3,1];
     % k=j*0.0250;
@@ -30,49 +61,61 @@ for j=1:1:10
 % Asiggn one coloumb for each Z solution
 x=Z(:,1);y=Z(:,2);z=Z(:,3);x2=Z(:,4);y2=Z(:,5);z2=Z(:,6);% master solution
 xs=Z(:,7);ys=Z(:,8);zs=Z(:,9);x2s=Z(:,10);y2s=Z(:,11);z2s=Z(:,12);% slave solution
-xm=x2( 1:end- 96500, 1);% Removing the transient period
-xss=x2s( 1:end- 96500,1);% Removing the transient period
-timev = T( 1:end- 96500,1);% Adjusting time vector to the same legth as xss and xm
+xm=x2( 1:end- 52, 1);% Removing the transient period
+xss=x2s( 1:end- 52,1);% Removing the transient period
+timev = T( 1:end- 52,1);% Adjusting time vector to the same legth as xss and xm
 timev2 = T( 1:end- 99030,1);% Adjusting time vector to the same legth as xss and xm
 % save xm.dat xm -ascii
 %vec = randi([0, 1], 97001, 1);
-infsignal2 =zeros(2530,1);
+infsignal2 =zeros(270,1);
 
+if j==N
+    infsignal2=zeros(306,1);
+end
 %infsignal = vec*0;
-infsignal = [infsignal2;signal_waveform'*0.01];
+infsignal = [infsignal2; current_packagem];
 st = xm + infsignal; % Information signal transmitted
+decrypted_packages= st - xss; % Chaotic signal from the slave is sustracted from the total signal
+decrypted_packagesm=decrypted_packages*1000;
 
-isignal = st - xss; % Chaotic signal from the slave is sustracted from the total signal
-
-
-figure(1); 
-plot(timev,st);% Transmitted signal
-title([ 'Encrypted information signal'])
-title([ 'Information signal after chaotic masking y_0=',num2str(y_0)])
-
+% figure(1); 
+% plot(timev,st);% Transmitted signal
+% title([ 'Encrypted information signal'])
+% title([ 'Information signal after chaotic masking y_0=',num2str(y_0)])
 
 
-figure(2);
-subplot(2,1,1);
-plot(timev2,infsignal(2531:end,1));% Original information signal
-title([ 'Information signal before chaotic masking y_0=',num2str(y_0)])
-
-subplot(2,1,2);
-plot(timev2,isignal(2531:end,1));% Recovered signal
-ylim([0 0.01]);
-title([ 'Information signal after chaotic masking y_0=',num2str(y_0)])
-
-
-
+len_package = length(current_package);
+start_index = 271;
+end_index = 360;
+if j==N
+    start_index = 307;
+end
+% Recortar y asignar la parte relevante
+encrypted_j{j} = st(start_index:end_index);
+decrypted_j{j} = decrypted_packagesm(start_index:end_index);
+% figure(2);
+% subplot(2,1,1);
+% plot(timev2,infsignal(2531:end,1));% Original information signal
+% title([ 'Information signal before chaotic masking y_0=',num2str(y_0)])
 % 
-figure(3); 
-plot(timev,xm);% Master signal
-title([ "Master signal"])
-
-
-figure(4); 
-plot(timev,xss);% Slave signal
-title([ 'Slave signal'])
+% subplot(2,1,2);
+% plot(timev2,decrypted_packagesm(2531:end,1));% Recovered signal
+% ylim([0 0.01]);
+% title([ 'Information signal after chaotic masking y_0=',num2str(y_0)])
+% figure(2); 
+% plot(infsignal(2530:end,1),decrypted_packagesm(2530:end,1));
+% title([ 'Comparing the informaton signal with the substraction '])
+% 
+% 
+% % 
+% figure(3); 
+% plot(timev,xm);% Master signal
+% title([ "Master signal"])
+% 
+% 
+% figure(4); 
+% plot(timev,xss);% Slave signal
+% title([ 'Slave signal'])
 
 
 % figure(5);% Sinchronization error
@@ -84,7 +127,7 @@ title([ 'Slave signal'])
 % plot(x2,x2s);
 % 
 % title([ 'complete sincronizacion'])
-pause(0.5);
+% pause(0.5);
 % 
 
 % 
@@ -112,3 +155,23 @@ pause(0.5);
 end
 
 
+
+% A partir de aquí, decrypted_j es un cell array de vectores numéricos.
+
+% 1. Concatenar los paquetes recuperados en un único vector de columna.
+% cell2mat ahora funciona porque todas las celdas contienen vectores numéricos.
+vector_recuperado = cell2mat(decrypted_j'); 
+vector_recuperado2 = cell2mat(encrypted_j'); 
+% 2. Usar reshape para devolver el vector a las dimensiones de la imagen.
+A_reconstructed_double = reshape(vector_recuperado, R, C, Channels);
+A_reconstructed_double2 = reshape(vector_recuperado2, R, C, Channels);
+% 3. Convertir a uint8 y visualizar
+A_final_uint8 = uint8(A_reconstructed_double);
+A_final_uint82 = uint8(A_reconstructed_double2);
+figure;
+imshow(A_final_uint8);
+title('Recover image from the receptor');
+
+figure;
+imshow(A_final_uint82);
+title('Encrypted image');
