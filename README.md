@@ -74,4 +74,4 @@ Findings were formally presented at the university's **"Feria de la Ciencia" (Sc
 ### Repository Contents
 
 * `/Multistable Rossler Simulations`: Contains all MATLAB  `.m` files used to model the chaotic attractors, synchronization mechanisms (Leader-Follower), and the core system dynamics.
-* `Rossler simulations`: Contains all MATLAB `.m` files used to model chaotic attractors and run statistical tests.
+* `/Rossler simulations`: Contains all MATLAB `.m` files used to model chaotic attractors and run statistical tests.
