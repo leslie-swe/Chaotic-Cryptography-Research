@@ -1,6 +1,6 @@
 clear all
 clc
-A=imread("C:\Users\luismax\Pictures\hyde.jpg");
+A=imread("C:\Users\luismax\Pictures\hyde2.jpg");
 imshow(A);
 dimensiones_originales = size(A); % Obtaining the original dimensions
 original_dimensions = size(A); % Obtaining the original dimensions
@@ -29,7 +29,7 @@ decrypted_j = cell(num_paquetes, 1);
 % figure;
 % imshow(A);
 
-tini=0;tfinal=80;M=2000;%Iteration steps size step 0.0200
+tini=0;tfinal=70;M=2000;%Iteration steps size step 0.0200
 r = 4;           % Control parameter
 x0 = 0.7;        % Initial condition (between 0 y 1)
 N = length(packages);         % Iterations
@@ -61,19 +61,19 @@ for j=1:1:N
 % Asiggn one coloumb for each Z solution
 x=Z(:,1);y=Z(:,2);z=Z(:,3);x2=Z(:,4);y2=Z(:,5);z2=Z(:,6);% master solution
 xs=Z(:,7);ys=Z(:,8);zs=Z(:,9);x2s=Z(:,10);y2s=Z(:,11);z2s=Z(:,12);% slave solution
-xm=x2( 1:end- 250, 1);% 1750 iteration for 70 s
-xss=x2s( 1:end- 250,1);% Removing the transient period
-timev = T( 1:end- 250,1);% Adjusting time vector to the same legth as xss and xm
-timev2 = T( 1:end- 250,1);% Adjusting time vector to the same legth as xss and xm
+xm=x2( 1:end, 1);% 
+xss=x2s( 1:end,1);% 
+timev = T( 1:end,1);% Adjusting time vector to the same legth as xss and xm
+
 % save xm.dat xm -ascii
 %vec = randi([0, 1], 97001, 1);
-infsignal2 =zeros(1300,1);
+len_package = length(current_package);
+start_index1 = (M-len_package);
+infsignal2 =zeros(start_index1,1);
 
-if j==N
-    infsignal2=zeros(1408,1);
-end
+
 %infsignal = vec*0;
-infsignal = [infsignal2; current_packagem];
+infsignal = [infsignal2; current_packagem];%Concatenate the zeros vector
 st = xm + infsignal; % Information signal transmitted
 decrypted_packages= st - xss; % Chaotic signal from the slave is sustracted from the total signal
 decrypted_packagesm=decrypted_packages*1000;
@@ -84,12 +84,10 @@ decrypted_packagesm=decrypted_packages*1000;
 % title([ 'Information signal after chaotic masking y_0=',num2str(y_0)])
 
 
-len_package = length(current_package);
-start_index = 1301;
-end_index = 1750;
-if j==N
-    start_index = 1409;
-end
+
+start_index = (M-len_package)+1;
+end_index = M;
+
 % Recortar y asignar la parte relevante
 encrypted_j{j} = st(start_index:end_index);
 decrypted_j{j} = decrypted_packagesm(start_index:end_index);
@@ -164,14 +162,22 @@ vector_recuperado = cell2mat(decrypted_j');
 vector_recuperado2 = cell2mat(encrypted_j'); 
 % 2. Usar reshape para devolver el vector a las dimensiones de la imagen.
 A_reconstructed_double = reshape(vector_recuperado, R, C, Channels);
-A_reconstructed_double2 = reshape(vector_recuperado2, R, C, Channels);
+min_val = min(vector_recuperado2);
+max_val = max(vector_recuperado2);
+vector_normalized = (vector_recuperado2 - min_val) / (max_val - min_val);
+
+% 3. Mapear a uint8 [0, 255]
+vector_scaled_uint8 = uint8(vector_normalized * 255);
+
+% 4. Reconstruir y visualizar la imagen encriptada
+A_reconstructed_scaled = reshape(vector_scaled_uint8, R, C, Channels);
 % 3. Convertir a uint8 y visualizar
 A_final_uint8 = uint8(A_reconstructed_double);
-A_final_uint82 = uint8(A_reconstructed_double2);
+
 figure;
 imshow(A_final_uint8);
 title('Recover image from the receptor');
 
 figure;
-imshow(A_final_uint82);
+imshow(A_reconstructed_scaled);
 title('Encrypted image');

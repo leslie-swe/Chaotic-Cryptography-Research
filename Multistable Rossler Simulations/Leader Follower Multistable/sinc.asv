@@ -1,6 +1,6 @@
 clear all
 clc
-A=imread("C:\Users\luismax\Pictures\hyde.jpg");
+A=imread("C:\Users\luismax\Pictures\hyde2.jpg");
 imshow(A);
 dimensiones_originales = size(A); % Obtaining the original dimensions
 original_dimensions = size(A); % Obtaining the original dimensions
@@ -10,7 +10,7 @@ Channels = original_dimensions(3);
 A = double(A);
 senal_informacion = A(:); 
 
-package_size = 450; 
+package_size = 90; 
 total_elements = length(senal_informacion);
 
 num_full_packages = floor(total_elements / package_size);
@@ -50,7 +50,7 @@ global k;
 for j=1:1:N
     j
     y_0=-8+y01(j)*16;
-    current_package = packages{j};%450 iteration per package
+    current_package = packages{j};
     current_packagem = current_package*0.001;
     % Define initial conditions
     Za=[-0.1,0.01,0.3,y_0,0.2,0.2,0.1,-0.01,2,2,3,1];
@@ -67,10 +67,10 @@ timev = T( 1:end- 250,1);% Adjusting time vector to the same legth as xss and xm
 timev2 = T( 1:end- 250,1);% Adjusting time vector to the same legth as xss and xm
 % save xm.dat xm -ascii
 %vec = randi([0, 1], 97001, 1);
-infsignal2 =zeros(1300,1);
+infsignal2 =zeros(450,1);
 
 if j==N
-    infsignal2=zeros(1408,1);
+    infsignal2=zeros(288,1);
 end
 %infsignal = vec*0;
 infsignal = [infsignal2; current_packagem];
@@ -85,10 +85,10 @@ decrypted_packagesm=decrypted_packages*1000;
 
 
 len_package = length(current_package);
-start_index = 1301;
-end_index = 1750;
+start_index = 271;
+end_index = 360;
 if j==N
-    start_index = 1409;
+    start_index = 289;
 end
 % Recortar y asignar la parte relevante
 encrypted_j{j} = st(start_index:end_index);
