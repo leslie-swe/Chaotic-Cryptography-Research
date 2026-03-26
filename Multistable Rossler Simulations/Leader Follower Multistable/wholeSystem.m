@@ -1,66 +1,70 @@
 clear all
 clc
-A=imread("C:\Users\luismax\Pictures\hyde2.jpg");
+A=imread("C:\Users\luismax\Pictures\original.jpg");
 imshow(A);
 dimensiones_originales = size(A); % Obtaining the original dimensions
 original_dimensions = size(A); % Obtaining the original dimensions
-R = original_dimensions(1); 
+R = original_dimensions(1);
 C = original_dimensions(2); 
 Channels = original_dimensions(3);
 A = double(A);
 senal_informacion = A(:); 
-
+% 
 package_size = 450; 
 total_elements = length(senal_informacion);
-
+% 
 num_full_packages = floor(total_elements / package_size);
-last_package_size = mod(total_elements, package_size);
-
+last_package_size = mod(total_elements, package_size)
+% 
 row_divisions = repmat(package_size, 1, num_full_packages);
 
 if last_package_size > 0
-    row_divisions = [row_divisions, last_package_size];
+    row_divisions = [row_divisions, last_package_size]
 end
-
-packages = mat2cell(senal_informacion, row_divisions, 1);
-num_paquetes = length(num_full_packages);
-% Inicializar el array de celdas que acumulará todos los resultados
+% 
+packages = mat2cell(senal_informacion, row_divisions, 1)
+num_paquetes = length(num_full_packages);%%%%%%%%%%%%
+% % Inicializar el array de celdas que acumulará todos los resultados
 decrypted_j = cell(num_paquetes, 1);
-% figure;
-% imshow(A);
-
+% % figure;
+% % imshow(A);
+% 
 tini=0;tfinal=70;M=2000;%Iteration steps size step 0.0200
 r = 4;           % Control parameter
 x0 = 0.7;        % Initial condition (between 0 y 1)
 N = length(packages);         % Iterations
-
-% signal_waveform = informationsignal_1(N2);
-
-% Vector inicialization
+% 
+% % signal_waveform = informationsignal_1(N2);
+% 
+% % Vector inicialization
 y01 = zeros(N, 1);
 y01(1) = x0;
+
 
 % Logistic map iteration generates initial conditions
 for n = 1:N-1
     y01(n+1) = r * y01(n) * (1 - y01(n));
 end
-M
+% plot(1:N,y01)
+% M
 global k;
 
 for j=1:1:N
-    j
+    j;
     y_0=-8+y01(j)*16;
     current_package = packages{j};%450 iteration per package
     current_packagem = current_package*0.001;
     % Define initial conditions
     Za=[-0.1,0.01,0.3,y_0,0.2,0.2,0.1,-0.01,2,2,3,1];
+    Zo=[-0.1,0.01,0.3,y_0,0.2,0.2,0.1,-0.01,2,2,3,1];
     % k=j*0.0250;
     k=1;
     [T,Z]=rks4('masterslave',tini,tfinal,Za,M);
+    [T,Z1]=rks4('masterslave',tini,tfinal,Zo,M);
 
 % Asiggn one coloumb for each Z solution
 x=Z(:,1);y=Z(:,2);z=Z(:,3);x2=Z(:,4);y2=Z(:,5);z2=Z(:,6);% master solution
-xs=Z(:,7);ys=Z(:,8);zs=Z(:,9);x2s=Z(:,10);y2s=Z(:,11);z2s=Z(:,12);% slave solution
+xs=Z1(:,7);ys=Z1(:,8);zs=Z1(:,9);x2s=Z1(:,10);y2s=Z1(:,11);z2s=Z1(:,12);% slave solution
 xm=x2( 1:end, 1);% 
 xss=x2s( 1:end,1);% 
 timev = T( 1:end,1);% Adjusting time vector to the same legth as xss and xm
@@ -81,7 +85,7 @@ decrypted_packagesm=decrypted_packages*1000;
 % figure(1); 
 % plot(timev,st);% Transmitted signal
 % title([ 'Encrypted information signal'])
-% title([ 'Information signal after chaotic masking y_0=',num2str(y_0)])
+
 
 
 
@@ -114,14 +118,14 @@ decrypted_j{j} = decrypted_packagesm(start_index:end_index);
 % figure(4); 
 % plot(timev,xss);% Slave signal
 % title([ 'Slave signal'])
-
-
+% 
+% 
 % figure(5);% Sinchronization error
 % error = abs(x2-x2s);
 % plot(T,error);
 % title([ 'error de sincronizacion'])
-% 
-% figure(5);
+% % 
+% figure(6);
 % plot(x2,x2s);
 % 
 % title([ 'complete sincronizacion'])
@@ -129,14 +133,14 @@ decrypted_j{j} = decrypted_packagesm(start_index:end_index);
 % 
 
 % 
-% figure(4); 
+% figure(7); 
 % plot(infsignal,isignal);
 % title([ 'Comparing the informaton signal with the substraction '])
-
+% 
 % pause(0.5);
-
-
-% figure(5);
+% 
+% 
+% figure(8);
 % error = abs(infsignal-isignal);
 % plot(timev,error);
 % title([ 'error de sincronizacion'])
@@ -151,9 +155,9 @@ decrypted_j{j} = decrypted_packagesm(start_index:end_index);
 % pause(0.5);
 
 end
-
-
-
+% 
+% 
+% 
 % A partir de aquí, decrypted_j es un cell array de vectores numéricos.
 
 % 1. Concatenar los paquetes recuperados en un único vector de columna.
@@ -181,3 +185,20 @@ title('Recover image from the receptor');
 figure;
 imshow(A_reconstructed_scaled);
 title('Encrypted image');
+% 1. Create a figure for Histogram Analysis
+figure;
+
+% 2. Histogram of the Original (Plain) Image
+subplot(1,2,1);
+imhist(uint8(A)); % A is your original image matrix
+title('Histogram: Plain Image');
+xlabel('Intensity Value');
+ylabel('Pixel Count');
+% 
+% 3. Histogram of the Encrypted (Cipher) Image
+subplot(1,2,2);
+% Use the normalized image we created earlier (0-255)
+imhist(A_reconstructed_scaled); 
+title('Histogram: Cipher Image');
+xlabel('Intensity Value');
+ylabel('Pixel Count');

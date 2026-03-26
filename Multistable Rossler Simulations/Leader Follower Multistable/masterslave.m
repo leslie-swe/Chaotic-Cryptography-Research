@@ -8,20 +8,10 @@ function dZdt = masterslave(t, Z, a, b, c)
     c=5.7;
     
     % Master variables
-    xm1 = Z(1);
-    xm2 = Z(2);
-    xm3 = Z(3);
-    ym1 = Z(4);
-    ym2 = Z(5);
-    ym3 = Z(6);
+    xm1 = Z(1); xm2 = Z(2); xm3 = Z(3); ym1 = Z(4); ym2 = Z(5); ym3 = Z(6);
     
     % Slave variables
-    xs1 = Z(7);
-    xs2 = Z(8);
-    xs3 = Z(9);
-    ys1 = Z(10);
-    ys2 = Z(11);
-    ys3 = Z(12);
+    xs1 = Z(7); xs2 = Z(8); xs3 = Z(9); ys1 = Z(10); ys2 = Z(11); ys3 = Z(12);
     
     % Pre-allocate the output vector
     dZdt = zeros(12,1);
