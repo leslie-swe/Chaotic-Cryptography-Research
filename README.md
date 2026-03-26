@@ -55,6 +55,14 @@ Findings were formally presented at the university's **"Feria de la Ciencia" (Sc
 ![Multistable Rössler Attractors y01 = 0.1](https://github.com/leslie-swe/Chaotic-Cryptography-Research/blob/main/Multistable%20Rossler%20Simulations/Multistable%20Rossler%20Only%20Leader/Images/attractor_rossler_multistable_y01%3D0.1.png)
 ![Multistable Rössler Attractors y01 = 7.9](https://github.com/leslie-swe/Chaotic-Cryptography-Research/blob/main/Multistable%20Rossler%20Simulations/Multistable%20Rossler%20Only%20Leader/Images/attractor_rossler_multistable_y01%3D7.9.png)
 
+#### 5. Original image
+![Original image](https://github.com/leslie-swe/Chaotic-Cryptography-Research/blob/main/Multistable%20Rossler%20Simulations/Leader%20Follower%20Multistable/original%20image.png)
+
+#### 6. Encrypted image
+![Encripted image](https://github.com/leslie-swe/Chaotic-Cryptography-Research/blob/main/Multistable%20Rossler%20Simulations/Leader%20Follower%20Multistable/encrypted%20image.png)
+
+#### 7. Recovered image
+![Recovered image](https://github.com/leslie-swe/Chaotic-Cryptography-Research/blob/main/Multistable%20Rossler%20Simulations/Leader%20Follower%20Multistable/recover%20image.png)
 
 
 ### Tech Stack
@@ -65,5 +73,5 @@ Findings were formally presented at the university's **"Feria de la Ciencia" (Sc
 
 ### Repository Contents
 
-* `/simulations`: Contains all MATLAB `.m` files used to model chaotic attractors and run statistical tests.
-* `/documentation`: Includes the final research report and presentation slides (in PDF format) from the "Feria de la Ciencia".
+* `/Multistable Rossler Simulations`: Contains all MATLAB  `.m` files used to model the chaotic attractors, synchronization mechanisms (Leader-Follower), and the core system dynamics.
+* `/Rossler simulations`: Contains all MATLAB `.m` files used to model chaotic attractors and run statistical tests.
