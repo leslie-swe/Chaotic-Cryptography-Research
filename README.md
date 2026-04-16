@@ -56,13 +56,13 @@ Findings were formally presented at the university's **"Feria de la Ciencia" (Sc
 ![Multistable Rössler Attractors y01 = 7.9](https://github.com/leslie-swe/Chaotic-Cryptography-Research/blob/main/Multistable%20Rossler%20Simulations/Multistable%20Rossler%20Only%20Leader/Images/attractor_rossler_multistable_y01%3D7.9.png)
 
 #### 5. Original image
-![Original image](https://github.com/leslie-swe/Chaotic-Cryptography-Research/blob/main/Multistable%20Rossler%20Simulations/Leader%20Follower%20Multistable/original%20image.png)
+![Original image](https://github.com/leslie-swe/Chaotic-Cryptography-Research/blob/main/Multistable%20Rossler%20Simulations/Leader%20Follower%20Multistable/Resultados/original%20image.png)
 
 #### 6. Encrypted image
-![Encripted image](https://github.com/leslie-swe/Chaotic-Cryptography-Research/blob/main/Multistable%20Rossler%20Simulations/Leader%20Follower%20Multistable/encrypted%20image.png)
+![Encripted image](https://github.com/leslie-swe/Chaotic-Cryptography-Research/blob/main/Multistable%20Rossler%20Simulations/Leader%20Follower%20Multistable/Resultados/encrypted%20image.png)
 
 #### 7. Recovered image
-![Recovered image](https://github.com/leslie-swe/Chaotic-Cryptography-Research/blob/main/Multistable%20Rossler%20Simulations/Leader%20Follower%20Multistable/recover%20image.png)
+![Recovered image](https://github.com/leslie-swe/Chaotic-Cryptography-Research/blob/main/Multistable%20Rossler%20Simulations/Leader%20Follower%20Multistable/Resultados/recover%20image.png)
 
 
 ### Tech Stack
